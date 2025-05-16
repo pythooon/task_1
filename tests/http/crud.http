@@ -1,0 +1,60 @@
+POST api.test/persons
+Accept: application/json
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "Test",
+    "company": true,
+    "companyName": "Test Company",
+    "vatNumber": "3322113388"
+}
+
+> {%
+    client.global.set('personId', response.body.id)
+%}
+
+
+###
+
+GET api.test/persons/{{personId}}
+Accept: application/json
+Content-Type: application/json
+
+> {%
+  client.global.set('personId', response.body.id)
+%}
+
+###
+
+PUT api.test/persons/{{personId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "Test2",
+  "lastName": "Test",
+  "company": true,
+  "companyName": "Test Company",
+  "vatNumber": "3322113388"
+}
+> {%
+  client.global.set('personId', response.body.id)
+%}
+
+###
+
+GET api.test/persons
+Accept: application/json
+Content-Type: application/json
+
+> {%
+  client.global.set('personId', response.body.items[0].id)
+%}
+
+###
+
+
+DELETE api.test/persons/{{personId}}
+Accept: application/json
+Content-Type: application/json
